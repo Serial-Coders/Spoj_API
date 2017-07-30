@@ -2,6 +2,7 @@ import requests
 import logging
 import bs4
 import exception
+import json
 
 from os import environ
 
@@ -11,6 +12,7 @@ class User(object):
             Constructor for the User class taking the username
         '''
         self.userName = uname
+        self.isLoggedIn = False
 
         try:
             self.proxyDict = {
@@ -39,11 +41,35 @@ class User(object):
             its necessary for submitting the problem
         '''
         self.__session = requests.Session()
+
         loginDat = {'login_user': self.userName, 'password': passW}
         resp = self.__session.post('http://www.spoj.com/login', data=loginDat)
         if 'Authentication failed!' in resp.text:
             self.__session.close()
             raise exception.LoginFalied('The password provided is not correct')
+        self.isLoggedIn = True
+
+    def editFirstName(self, name):
+        pass
+
+    def editLastName(self, name):
+        pass
+
+    def editNick(self, nick):
+        pass
+
+    def editAboutMe(self, text):
+        pass
+
+    def editPhoneNumber(self, number):
+        pass
+
+    def editSkype(self, ID):
 
     def close(self):
         self.__session.close()
+        self.isLoggedIn = False
+
+if __name__ == '__main__':
+    u = User('lord_poseidon')
+    u.login('doremon2')

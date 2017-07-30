@@ -3,3 +3,6 @@ class UserNotAvailable(Exception):
 
 class LoginFalied(Exception):
     pass
+
+class NotLoggedIn(Exception):
+    pass
