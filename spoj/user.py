@@ -217,8 +217,3 @@ class User(object):
         userDict['opt_dis_probl_tags'] = soup.find('input', {'name': 'opt_dis_probl_tags'})['value']
 
         return userDict
-
-
-if __name__ == '__main__':
-    u = User('lord_poseidon')
-    u.login('doremon2')
