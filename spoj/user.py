@@ -30,13 +30,7 @@ class User(object):
         resp = requests.get(userURL, proxies = self.proxyDict)
 
         soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        scores = soup.find_all('dd')
-
-        try:
-            self.solveCount = int(scores[0].contents[0])
-            self.attemptCount = int(scores[1].contents[0])
-        except:
-            raise exception.UserNotAvailable('{0} is not a valid user'.format(uname))
+        self._fetchData(soup)
 
     def login(self, passW):
         '''
@@ -179,6 +173,40 @@ class User(object):
     def close(self):
         self.__session.close()
         self.isLoggedIn = False
+
+    def _fetchData(self, soup):
+        if self.userName not in str(soup):
+            raise exception.UserNotAvailable('{} is not a valid user'.format(self.userName))
+
+        self.name     = soup.find('div', {'id': 'user-profile-left'}).find('h3').get_text()
+
+        pVec = soup.find('div', {'id': 'user-profile-left'}).findAll('p')
+        self.location = pVec[0].get_text().lstrip()
+        self.joinDate = pVec[1].get_text().lstrip(' Joined')
+        self.worldRank = int(pVec[2].get_text().lstrip(' World Rank: #').split()[0])
+        self.points = float(pVec[2].get_text().lstrip(' World Rank: #').split()[1][1:])
+        self.school = pVec[3].get_text().lstrip(' Institution: ')
+        self.aboutMe = pVec[4].get_text().lstrip()
+
+        tg = soup.find('dl', {'class': 'dl-horizontal profile-info-data profile-info-data-stats'}).findAll('dd')
+        self.attemptCount = int(tg[0].get_text())
+        self.solveCount = int(tg[1].get_text())
+
+        self.solvedProblems = []
+        tg = soup.findAll('table')[0]
+        for tr in tg.findAll('tr'):
+            for element in tr.findAll('td'):
+                self.solvedProblems.append(element.get_text())
+                if self.solvedProblems[-1] == '':
+                    self.solvedProblems.pop()
+
+        self.todoProblems = []
+        tg = soup.findAll('table')[1]
+        for tr in tg.findAll('tr'):
+            for element in tr.findAll('td'):
+                self.todoProblems.append(element.get_text())
+                if self.todoProblems[-1] == '':
+                    self.todoProblems.pop()
 
     def _generageProfileDict(self, soup):
         userDict = {}
