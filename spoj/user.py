@@ -32,147 +32,12 @@ class User(object):
         soup = bs4.BeautifulSoup(resp.text, 'lxml')
         self._fetchData(soup)
 
-    def login(self, passW):
-        '''
-            Used to login to the Spoj,
-            its necessary for submitting the problem
-        '''
-        self.__session = requests.Session()
-
-        loginDat = {'login_user': self.userName, 'password': passW}
-        resp = self.__session.post('http://www.spoj.com/login', data=loginDat)
-        if 'Authentication failed!' in resp.text:
-            self.__session.close()
-            raise exception.LoginFalied('The password provided is not correct')
-        self.isLoggedIn = True
-
-    def editNick(self, nick):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['name'] = nick
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editFirstName(self, name):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['firstname'] = name
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editLastName(self, name):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['lastname'] = name
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editPhoneNumber(self, number):
-        number = str(number)
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userdict = self._generageprofiledict(soup)
-        userdict['phone'] = number
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
-
-    def editSkype(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['skype'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editYearOfBirth(self, year):
-        year = str(year)
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userdict = self._generageProfileDict(soup)
-        userdict['birthyear'] = year
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
-
-    def editCountry(self, country):
-        pass
-
-    def editCity(self, city):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userdict = self._generageProfileDict(soup)
-        userdict['city'] = city
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
-
-    def editSchool(self, school):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userdict = self._generageProfileDict(soup)
-        userdict['school'] = school
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
-
-    def editAboutMe(self, text):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['aboutme'] = text
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editWebsite(self, website):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['website'] = website
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editFacebookID(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['facebook'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editGoogleID(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['google'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editTwitterID(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['twitter'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editGithubID(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['github'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editBitbucketID(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['bitbucket'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editStackOverflowID(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['stackoverflow'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def editLinkedInID(self, ID):
-        resp = self.__session.get('http://www.spoj.com/manageaccount')
-        soup = bs4.BeautifulSoup(resp.text, 'lxml')
-        userDict = self._generageProfileDict(soup)
-        userDict['linkedin'] = ID
-        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
-
-    def close(self):
-        self.__session.close()
-        self.isLoggedIn = False
+    def _authenticator(func):
+        def wrapper(self, *args, **kargs):
+            if not self.isLoggedIn:
+                raise exception.NotLoggedIn('Function only available when logged in')
+            return func(self, *args, **kargs)
+        return wrapper
 
     def _fetchData(self, soup):
         if self.userName not in str(soup):
@@ -245,3 +110,164 @@ class User(object):
         userDict['opt_dis_probl_tags'] = soup.find('input', {'name': 'opt_dis_probl_tags'})['value']
 
         return userDict
+
+    def login(self, passW):
+        '''
+            Used to login to the Spoj,
+            its necessary for submitting the problem
+        '''
+        self.__session = requests.Session()
+
+        loginDat = {'login_user': self.userName, 'password': passW}
+        resp = self.__session.post('http://www.spoj.com/login', data=loginDat)
+        if 'Authentication failed!' in resp.text:
+            self.__session.close()
+            raise exception.LoginFalied('The password provided is not correct')
+        self.isLoggedIn = True
+
+    @_authenticator
+    def editNick(self, nick):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['name'] = nick
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editFirstName(self, name):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['firstname'] = name
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editLastName(self, name):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['lastname'] = name
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editPhoneNumber(self, number):
+        number = str(number)
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userdict = self._generageprofiledict(soup)
+        userdict['phone'] = number
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
+
+    @_authenticator
+    def editSkype(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['skype'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editYearOfBirth(self, year):
+        year = str(year)
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userdict = self._generageProfileDict(soup)
+        userdict['birthyear'] = year
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
+
+    @_authenticator
+    def editCountry(self, country):
+        pass
+
+    @_authenticator
+    def editCity(self, city):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userdict = self._generageProfileDict(soup)
+        userdict['city'] = city
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
+
+    @_authenticator
+    def editSchool(self, school):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userdict = self._generageProfileDict(soup)
+        userdict['school'] = school
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userdict)
+
+    @_authenticator
+    def editAboutMe(self, text):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['aboutme'] = text
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editWebsite(self, website):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['website'] = website
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editFacebookID(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['facebook'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editGoogleID(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['google'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editTwitterID(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['twitter'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editGithubID(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['github'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editBitbucketID(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['bitbucket'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editStackOverflowID(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['stackoverflow'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    @_authenticator
+    def editLinkedInID(self, ID):
+        resp = self.__session.get('http://www.spoj.com/manageaccount')
+        soup = bs4.BeautifulSoup(resp.text, 'lxml')
+        userDict = self._generageProfileDict(soup)
+        userDict['linkedin'] = ID
+        resp = self.__session.post('http://www.spoj.com/editaccount/', data=userDict)
+
+    def close(self):
+        self.__session.close()
+        self.isLoggedIn = False
+
