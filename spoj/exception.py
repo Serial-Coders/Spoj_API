@@ -6,3 +6,6 @@ class LoginFalied(Exception):
 
 class NotLoggedIn(Exception):
     pass
+
+class InvalidProblem(Exception):
+    pass
