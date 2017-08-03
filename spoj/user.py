@@ -61,9 +61,8 @@ class User(object):
         tg = soup.findAll('table')[0]
         for tr in tg.findAll('tr'):
             for element in tr.findAll('td'):
-                self.solvedProblems.append(element.get_text())
-                if self.solvedProblems[-1] == '':
-                    self.solvedProblems.pop()
+                if(len(str(element.get_text()))!=0):
+                    self.solvedProblems.append(element.get_text())
 
         self.todoProblems = []
         tg = soup.findAll('table')[1]
