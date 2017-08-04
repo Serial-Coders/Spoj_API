@@ -16,7 +16,19 @@ class Problem(object):
         self.problemName = soup.find('h2', {'id': 'problem-name'}).get_text()
         self.problemName = sub(r'.*- ', '', self.problemName)
 
-        self.tags = soup.find('div', {'id': 'problem-tags'}).get_text().lstrip().rstrip().split('\n')
+        self.tags = soup.find('div', {'id': 'problem-tags'}).get_text().strip().split('\n')
         if self.tags[0] == 'no tags':
             self.tags = None
 
+        probContents=soup.find(id='problem-body').contents
+        output = ""
+        for child in probContents:
+            if(child.name!=None):
+                if(child.name=='p'):
+                    output+=child.get_text()
+                    output+="\n"
+                elif(child.name=='h2' or child.name=='h3'):
+                    output+="    "
+                    output+=child.get_text()
+                    output+="\n"
+        self.description = output
