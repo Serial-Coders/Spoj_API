@@ -1,6 +1,10 @@
 import requests
 import bs4
-import exception
+
+try:
+    from . import exception
+except:
+    import exception
 from re import sub
 
 class Problem(object):
