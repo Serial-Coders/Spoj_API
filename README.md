@@ -27,7 +27,7 @@ Can do a huge variety of stuff with the spoj, be it the fetching problem from SP
 ```
 A very simple and easy to understand code
 
-##Features
+## Features
 You wanna know the features man, I hope that this brief sample of code provide you some info of the features you can built the list, so let be formal, here is the list of the features:
 * Easy to use
 * Highly functional
@@ -35,17 +35,17 @@ You wanna know the features man, I hope that this brief sample of code provide y
 * Sorry, can do much more than a you can do with Spoj now
 * Good documentation
 
-##Installation
+## Installation
 To install SpojPI just write
 `pip install spojpi`
 ... or if you like the old-fashion way of installing from source you can also do
 `python setup.py install`
 
-##Documentation
+## Documentation
 
 The documentation can be found [here](), you can refer to it, its not too big, easy to understand, RTFM.
 
-##How to Contribute
+## How to Contribute
 If you like this project well, and you like to contribute, then its very easy,
 
 1. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. There is a Contributor Friendly tag for issues that should be ideal for people who are not very familiar with the codebase yet.
