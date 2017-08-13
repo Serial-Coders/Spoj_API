@@ -2,3 +2,6 @@ env/
 *.pyc
 *.swp
 test*
+build/
+dist/
+*.egg-info

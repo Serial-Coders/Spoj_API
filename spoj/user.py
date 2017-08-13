@@ -1,5 +1,4 @@
 import requests
-import logging
 import bs4
 
 from os import environ
@@ -54,8 +53,8 @@ class User(object):
         self.aboutMe = pVec[4].get_text().lstrip()
 
         tg = soup.find('dl', {'class': 'dl-horizontal profile-info-data profile-info-data-stats'}).findAll('dd')
-        self.attemptCount = int(tg[0].get_text())
-        self.solveCount = int(tg[1].get_text())
+        self.attemptCount = int(tg[1].get_text())
+        self.solveCount = int(tg[0].get_text())
 
         self.solvedProblems = []
         tg = soup.findAll('table')[0]

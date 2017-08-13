@@ -6,7 +6,7 @@ A high functional programming interface for spoj.
 Can do a huge variety of stuff with the spoj, be it the fetching problem from SPOJ, submitting it, comparing our profile with other, or it be getting the info of the user, or it may it be the changing the information of the user, all this is packed with SpojPI. A small, lightweight, easy to use, day-by-day getting better is all set.
 
 ```python
->>> from spoj import user, problem
+>>> from spoj import User, Problem
 >>> u = User('lord_poseidon')
 >>> u.name
 'Nimit Bhardwaj'
